@@ -20,21 +20,25 @@ public class BookAdapter extends RecyclerView.Adapter<BookAdapter.ViewHolder> {
     private List<Book> mBooks;
     private Context mContext;
 
+
     // View lookup cache
-    public class ViewHolder extends RecyclerView.ViewHolder {
+    public class ViewHolder extends RecyclerView.ViewHolder  {
         public ImageView ivCover;
         public TextView tvTitle;
         public TextView tvAuthor;
+        public Context context;
 
-        public ViewHolder(View itemView) {
-            // Stores the itemView in a public final member variable that can be used
-            // to access the context from any ViewHolder instance.
+        public ViewHolder(Context context, View itemView) {
             super(itemView);
-
-            ivCover = (ImageView)itemView.findViewById(R.id.ivBookCover);
-            tvTitle = (TextView)itemView.findViewById(R.id.tvTitle);
-            tvAuthor = (TextView)itemView.findViewById(R.id.tvAuthor);
+            this.ivCover = (ImageView) itemView.findViewById(R.id.ivBookCover);
+            this.tvTitle = (TextView) itemView.findViewById(R.id.tvTitle);
+            this.tvAuthor = (TextView) itemView.findViewById(R.id.tvAuthor);
+            // Store the context
+            this.context = context;
+            // Attach a click listener to the entire row view
         }
+
+
     }
 
     public BookAdapter(Context context, ArrayList<Book> aBooks) {
@@ -52,7 +56,7 @@ public class BookAdapter extends RecyclerView.Adapter<BookAdapter.ViewHolder> {
         View bookView = inflater.inflate(R.layout.item_book, parent, false);
 
         // Return a new holder instance
-        BookAdapter.ViewHolder viewHolder = new BookAdapter.ViewHolder(bookView);
+        BookAdapter.ViewHolder viewHolder = new BookAdapter.ViewHolder(context, bookView);
         return viewHolder;
     }
 
